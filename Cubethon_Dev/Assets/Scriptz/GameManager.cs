@@ -4,14 +4,34 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     bool gameHasEnded = false;
-    public float restartDelay = 1f;
+    public float restartDelay = 2f;
     public GameObject completeLevelUI;
+    [SerializeField] GameObject player;
+    
+    private void OnEnable()
+    {
+        PlayerCollision.OnHitObstacle += EndGame;
+    }
+
+    private void OnDisable()
+    {
+        PlayerCollision.OnHitObstacle -= EndGame;
+    }
+    
     public void CompleteLevel()
     {
         completeLevelUI.SetActive(true);
     }
-    public void EndGame()
+    public void EndGame(Collision collisionInfo)
     {
+        player.GetComponent<PlayerMovement>().enabled = false;
+        PlayerCollision.OnHitObstacle -= EndGame;
+
+        if(collisionInfo != null)
+        {
+            Debug.Log("Hit: " + collisionInfo.collider.name);
+        }
+
         if (gameHasEnded == false)
         {
             gameHasEnded = true;

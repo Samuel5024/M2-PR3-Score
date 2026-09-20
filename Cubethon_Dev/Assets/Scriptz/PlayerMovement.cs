@@ -21,7 +21,7 @@ void FixedUpdate() //use fixed update for physics stuff
 
         if(rb.position.y < -1f)
         {
-            FindObjectOfType<GameManager>().EndGame();
+            FindObjectOfType<GameManager>().EndGame(null);
         }
     }
 }
