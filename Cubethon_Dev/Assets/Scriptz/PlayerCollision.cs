@@ -21,4 +21,9 @@ public class PlayerCollision : MonoBehaviour
 
         }
     }
+
+    public static void TriggerHitObstacle(Collision collisionInfo)
+    {
+        OnHitObstacle?.Invoke(collisionInfo);
+    }
 }
